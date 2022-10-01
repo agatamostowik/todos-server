@@ -5,6 +5,7 @@ const app = express();
 const port = process.env.port || 3000;
 
 app.use(cors());
+app.use(express.static("public"));
 
 app.get("/", function (req, res) {
   res.send("hello from root route!");
