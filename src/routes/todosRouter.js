@@ -10,11 +10,8 @@ import { validatePostTodoMiddleware } from "../middlewares/validatePostTodoMiddl
 export const todosRouter = Router();
 
 todosRouter.get("/", getTodoController);
-
 todosRouter.post("/", validatePostTodoMiddleware, addTodoController);
-
 todosRouter.delete("/:todoId", deleteTodoController);
-
 todosRouter.put(
   "/:todoId/edit",
   validateEditTodoMiddleware,

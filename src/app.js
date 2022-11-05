@@ -5,7 +5,7 @@ import { rootRouter } from "./routes/index.js";
 
 export const initApp = () => {
   const app = express();
-  console.log(app);
+
   app.use(
     cors({
       origin: [
@@ -14,9 +14,7 @@ export const initApp = () => {
       ],
     })
   );
-
   app.use(bodyParser.json());
-
   app.use("/", rootRouter);
 
   return app;

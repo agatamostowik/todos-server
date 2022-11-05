@@ -5,5 +5,4 @@ import { apiRouter } from "./apiRouter.js";
 export const rootRouter = Router();
 
 rootRouter.get("/", rootController);
-
 rootRouter.use("/api", apiRouter);

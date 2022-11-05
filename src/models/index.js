@@ -36,3 +36,18 @@ export const addTodo = async (label, typedAncestorsIds, parentId) => {
 
   return result[0];
 };
+
+export const getUserByEmail = async (email) => {
+  const queryString = `SELECT * FROM users WHERE email = '${email}';`;
+
+  const result = await query(queryString);
+
+  return result[0];
+};
+
+export const createUser = async (encryptedUser) => {
+  const queryString = `INSERT INTO users ("firstName", "lastName", "email", "phoneNumber", "password") VALUES ('${encryptedUser.firstName}', '${encryptedUser.lastName}', '${encryptedUser.email}', ${encryptedUser.phoneNumber}, '${encryptedUser.password}') RETURNING "firstName", "lastName", "email", "phoneNumber";`;
+
+  const result = await query(queryString);
+  return result[0];
+};
