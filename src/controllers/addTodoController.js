@@ -9,15 +9,15 @@ export const addTodoController = async (req, res) => {
     ancestorsIds.length === 0 ? "[]::integer[]" : JSON.stringify(ancestorsIds);
 
   try {
-    console.log(
-      "Starting sending query for adding new todo with: label:",
+    const user = await req.user;
+
+    console.log("user:", user);
+    const addTodoResponse = await addTodo(
       label,
-      "ancestorsIds: ",
-      ancestorsIds,
-      "parentId: ",
-      parentId
+      typedAncestorsIds,
+      parentId,
+      user.id
     );
-    const addTodoResponse = await addTodo(label, typedAncestorsIds, parentId);
 
     res.json(addTodoResponse);
     console.log("Endpoint responded with:", addTodoResponse);

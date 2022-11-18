@@ -4,5 +4,14 @@ import { authRouter } from "./authRouter.js";
 
 export const apiRouter = Router();
 
-apiRouter.use("/todos", todosRouter);
+const checkAuthenticationMiddleware = (req, res, next) => {
+  // req.isAuthenticated() will return true if user is logged in
+  if (req.isAuthenticated()) {
+    next();
+  } else {
+    res.status(400).send("nie jestes zalogowany!");
+  }
+};
+
+apiRouter.use("/todos", checkAuthenticationMiddleware, todosRouter);
 apiRouter.use("/auth", authRouter);
