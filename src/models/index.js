@@ -1,9 +1,9 @@
 import { query } from "../../postgresql.js";
 
 export const getTodos = async (userId) => {
-  const queryString = `SELECT todo.* FROM profile_todo, todo WHERE profile_todo.todo_id = todo.id AND profile_todo.user_id = ${userId};`;
-
-  const result = await query(queryString);
+  const todos = `SELECT todo.* FROM profile_todo, todo WHERE profile_todo.todo_id = todo.id AND profile_todo.user_id = ${userId};`;
+  const tags = `SELECT tag.name FROM `;
+  const result = await query(todos);
   return result;
 };
 
