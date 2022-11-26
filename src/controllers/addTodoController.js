@@ -1,4 +1,5 @@
 import { addTodo } from "../models/index.js";
+import { selectTodoById } from "../models/index.js";
 
 export const addTodoController = async (req, res) => {
   const label = req.body.label;
@@ -11,16 +12,12 @@ export const addTodoController = async (req, res) => {
   try {
     const user = await req.user;
 
-    console.log("user:", user);
-    const addTodoResponse = await addTodo(
-      label,
-      typedAncestorsIds,
-      parentId,
-      user.id
-    );
+    // console.log("user:", user);
+    const result = await addTodo(label, typedAncestorsIds, parentId, user.id);
+    // console.log("todoId:", todoId);
 
-    res.json(addTodoResponse);
-    console.log("Endpoint responded with:", addTodoResponse);
+    res.json(result);
+    // console.log("Endpoint responded with:", result);
   } catch (error) {
     console.log("ERROR: ", error);
   }

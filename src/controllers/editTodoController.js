@@ -8,14 +8,12 @@ export const editTodoController = async (req, res) => {
   try {
     if (status) {
       console.log("Starting sending query for status column with:", status);
-      const statusChangeResponse = await editTodo(todoId, label);
-      console.log("DB responded with:", statusChangeResponse);
+      await editTodo(todoId, "status", status);
     }
 
     if (label) {
       console.log("Starting sending query for label column with:", label);
-      const labelChangeResponse = await editTodo(todoId, label);
-      console.log("DB responded with:", labelChangeResponse);
+      await editTodo(todoId, "label", label);
     }
 
     const result = await selectTodoById(todoId);
