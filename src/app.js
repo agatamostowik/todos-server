@@ -13,7 +13,7 @@ export const initApp = () => {
     cors({
       credentials: true,
       origin: [
-        "https://todos-node-client.herokuapp.com/",
+        "https://not-another-boring-todolist.up.railway.app/",
         "http://localhost:3000",
       ],
     })

@@ -5,6 +5,7 @@ export const validateEditTodoMiddleware = (req, res, next) => {
     label: z.string().min(1).optional(),
     status: z.enum(["new", "in_progress", "done"]).optional(),
   });
+
   // TODO: validation preventing sending an empty object
 
   const paramsSchema = z.object({
