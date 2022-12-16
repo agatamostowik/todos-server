@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { todosRouter } from "./todosRouter.js";
+import { tagsRouter } from "./tagsRouter.js";
 import { authRouter } from "./authRouter.js";
 
 export const apiRouter = Router();
@@ -14,4 +15,5 @@ const checkAuthenticationMiddleware = (req, res, next) => {
 };
 
 apiRouter.use("/todos", checkAuthenticationMiddleware, todosRouter);
+apiRouter.use("/tags", tagsRouter);
 apiRouter.use("/auth", authRouter);

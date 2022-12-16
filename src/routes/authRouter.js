@@ -24,8 +24,9 @@ authRouter.post(
   signUpController
 );
 
-authRouter.post("/logout", (req, res) => {
+authRouter.post("/signout", (req, res) => {
+  console.log("session:", req.session);
   req.session = null;
 
-  res.status(200).send("wylogowano");
+  res.status(200).send({ status: "ok" });
 });

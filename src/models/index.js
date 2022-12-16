@@ -3,7 +3,7 @@ import { query } from "../../postgresql.js";
 export const getTodos = async (userId) => {
   // const queryTodos = `SELECT todo.* FROM profile_todo, todo WHERE profile_todo.todo_id = todo.id AND profile_todo.user_id = ${userId};`;
   const queryTodos = `
-SELECT todo.*, ARRAY_REMOVE(ARRAY_AGG(tag.name), NULL) as tags
+  SELECT todo.*, COALESCE(JSON_AGG(tag) FILTER (WHERE tag IS NOT NULL), '[]') AS tags
 FROM todo
 INNER JOIN profile_todo
 ON profile_todo.todo_id = todo.id AND profile_todo.user_id = ${userId}
@@ -98,4 +98,19 @@ export const createUser = async (encryptedUser) => {
 
   const result = await query(queryString);
   return result[0];
+};
+
+export const getTags = async (userId) => {
+  const queryString = `
+  SELECT DISTINCT tag.*
+	FROM tag
+	INNER JOIN todo_tag
+	ON tag.id = todo_tag.tag_id
+	INNER JOIN todo
+	ON todo_tag.todo_id = todo.id
+	INNER JOIN profile_todo
+	ON profile_todo.todo_id = todo.id AND profile_todo.user_id = ${userId}; `;
+
+  const result = await query(queryString);
+  return result;
 };

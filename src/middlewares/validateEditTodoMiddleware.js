@@ -1,10 +1,15 @@
 import { z } from "zod";
 
 export const validateEditTodoMiddleware = (req, res, next) => {
-  const bodySchema = z.object({
-    label: z.string().min(1).optional(),
-    status: z.enum(["new", "in_progress", "done"]).optional(),
-  });
+  const bodySchema = z
+    .object({
+      label: z.string().min(1).optional(),
+      status: z.enum(["new", "in_progress", "done"]).optional(),
+      tags: z
+        .array(z.object({ id: z.number(), name: z.string().min(1) }))
+        .optional(),
+    })
+    .min(1);
 
   // TODO: validation preventing sending an empty object
 
