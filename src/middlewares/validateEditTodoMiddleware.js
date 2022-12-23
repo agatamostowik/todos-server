@@ -1,17 +1,21 @@
 import { z } from "zod";
 
 export const validateEditTodoMiddleware = (req, res, next) => {
-  const bodySchema = z
-    .object({
-      label: z.string().min(1).optional(),
-      status: z.enum(["new", "in_progress", "done"]).optional(),
-      tags: z
-        .array(z.object({ id: z.number(), name: z.string().min(1) }))
-        .optional(),
-    })
-    .min(1);
-
-  // TODO: validation preventing sending an empty object
+  const bodySchema = z.object({
+    label: z.string().min(1).optional(),
+    status: z.enum(["new", "in_progress", "done"]).optional(),
+    addedTags: z
+      .array(
+        z.object({
+          id: z.literal("new_tag").or(z.number()),
+          name: z.string().min(1),
+        })
+      )
+      .optional(),
+    removedTags: z
+      .array(z.object({ id: z.number(), name: z.string().min(1) }))
+      .optional(),
+  });
 
   const paramsSchema = z.object({
     todoId: z.string().refine((value) => {

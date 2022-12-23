@@ -5,7 +5,7 @@ export const validateSignUpMiddleware = (req, res, next) => {
     firstName: z.string().min(1),
     lastName: z.string().min(1),
     email: z.string().email(),
-    phoneNumber: z.number(),
+    phoneNumber: z.string(),
     password: z.string().min(8),
   });
 
@@ -16,6 +16,7 @@ export const validateSignUpMiddleware = (req, res, next) => {
     next();
   } catch (error) {
     console.log("Request body validation failed");
+    console.error(error);
     res.status(500).send("Bad request: incorrect parameters");
   }
 };

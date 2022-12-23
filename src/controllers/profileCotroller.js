@@ -1,5 +1,6 @@
 export const profileController = async (req, res) => {
   const user = await req.user;
-  // console.log("user: ", user);
+  console.log("me: ", user);
+  
   res.json(user);
 };

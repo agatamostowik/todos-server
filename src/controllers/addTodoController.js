@@ -1,5 +1,4 @@
 import { addTodo } from "../models/index.js";
-import { selectTodoById } from "../models/index.js";
 
 export const addTodoController = async (req, res) => {
   const label = req.body.label;
