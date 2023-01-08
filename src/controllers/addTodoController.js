@@ -11,12 +11,9 @@ export const addTodoController = async (req, res) => {
   try {
     const user = await req.user;
 
-    // console.log("user:", user);
     const result = await addTodo(label, typedAncestorsIds, parentId, user.id);
-    // console.log("todoId:", todoId);
 
     res.json(result);
-    // console.log("Endpoint responded with:", result);
   } catch (error) {
     console.log("ERROR: ", error);
   }

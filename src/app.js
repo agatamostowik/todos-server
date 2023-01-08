@@ -5,10 +5,12 @@ import passport from "passport";
 import { rootRouter } from "./routes/index.js";
 import cookieSession from "cookie-session";
 import { getUserById } from "./models/index.js";
+// import { ps as passport } from "./passport.js";
 
 export const initApp = () => {
   const app = express();
 
+  // Global middlewares
   app.use(
     cors({
       credentials: true,
@@ -18,17 +20,13 @@ export const initApp = () => {
       ],
     })
   );
-
   app.use(bodyParser.json());
-
   app.use(
     cookieSession({
       keys: ["key1", "key2"],
-      // Cookie Options
       maxAge: 24 * 60 * 60 * 1000, // 24 hours
     })
   );
-
   app.use(passport.initialize());
   app.use(passport.session());
 
@@ -39,6 +37,7 @@ export const initApp = () => {
     done(null, getUserById(id));
   });
 
+  // Routes
   app.use("/", rootRouter);
 
   return app;

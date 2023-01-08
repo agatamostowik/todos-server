@@ -156,7 +156,7 @@ export const getUserById = async (id) => {
 };
 
 export const createUser = async (encryptedUser) => {
-  const queryString = `INSERT INTO profile ("firstName", "lastName", "email", "phoneNumber", "password") VALUES ('${encryptedUser.firstName}', '${encryptedUser.lastName}', '${encryptedUser.email}', ${encryptedUser.phoneNumber}, '${encryptedUser.password}') RETURNING "firstName", "lastName", "email", "phoneNumber";`;
+  const queryString = `INSERT INTO profile ("firstName", "lastName", "email", "phoneNumber", "password") VALUES ('${encryptedUser.firstName}', '${encryptedUser.lastName}', '${encryptedUser.email}', ${encryptedUser.phoneNumber}, '${encryptedUser.password}') RETURNING "id", "firstName", "lastName", "email", "phoneNumber";`;
 
   const result = await query(queryString);
   return result[0];
